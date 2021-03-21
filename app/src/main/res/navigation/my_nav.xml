@@ -9,7 +9,15 @@
         android:id="@+id/recipesFragment"
         android:name="com.andriawan.foodie.ui.fragment.recipe.RecipesFragment"
         android:label="@string/reciped_fragment"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes" >
+        <action
+            android:id="@+id/action_recipesFragment_to_recipesBottomSheet"
+            app:destination="@id/recipesBottomSheet" />
+        <argument
+            android:name="backFromBottomSheet"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteRecipesFragment"
         android:name="com.andriawan.foodie.ui.fragment.favorites.FavoriteRecipesFragment"
@@ -20,4 +28,13 @@
         android:name="com.andriawan.foodie.ui.fragment.foodJoke.FoodJokeFragment"
         android:label="@string/food_joke_fragment"
         tools:layout="@layout/fragment_food_joke" />
+    <dialog
+        android:id="@+id/recipesBottomSheet"
+        android:name="com.andriawan.foodie.ui.fragment.recipe.bottomsheet.RecipesBottomSheet"
+        android:label="recipes_bottom_sheet"
+        tools:layout="@layout/recipes_bottom_sheet" >
+        <action
+            android:id="@+id/action_recipesBottomSheet_to_recipesFragment"
+            app:destination="@id/recipesFragment" />
+    </dialog>
 </navigation>
