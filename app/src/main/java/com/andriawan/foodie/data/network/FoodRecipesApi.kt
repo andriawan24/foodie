@@ -1,4 +1,4 @@
-package com.andriawan.foodie
+package com.andriawan.foodie.data.network
 
 import com.andriawan.foodie.models.FoodRecipe
 import retrofit2.Response

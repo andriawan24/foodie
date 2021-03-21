@@ -6,4 +6,5 @@
     <string name="reciped_fragment">Reciped</string>
     <string name="food_joke_fragment">Joke</string>
     <string name="no_internet">No Internet Connection</string>
+    <string name="vegan">Vegan</string>
 </resources>

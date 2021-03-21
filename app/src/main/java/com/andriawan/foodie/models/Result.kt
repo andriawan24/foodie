@@ -4,46 +4,46 @@ package com.andriawan.foodie.models
 import com.google.gson.annotations.SerializedName
 
 data class Result(
-        @SerializedName("aggregateLikes")
+    @SerializedName("aggregateLikes")
     val aggregateLikes: Int,
-        @SerializedName("cheap")
+    @SerializedName("cheap")
     val cheap: Boolean,
-        @SerializedName("dairyFree")
+    @SerializedName("dairyFree")
     val dairyFree: Boolean,
-        @SerializedName("extendedIngredients")
+    @SerializedName("extendedIngredients")
     val extendedIngredients: List<ExtendedIngredient>,
-        @SerializedName("glutenFree")
+    @SerializedName("glutenFree")
     val glutenFree: Boolean,
-        @SerializedName("id")
+    @SerializedName("id")
     val id: Int,
-        @SerializedName("image")
+    @SerializedName("image")
     val image: String,
-        @SerializedName("readyInMinutes")
+    @SerializedName("readyInMinutes")
     val readyInMinutes: Int,
-        @SerializedName("sourceName")
+    @SerializedName("sourceName")
     val sourceName: String,
-        @SerializedName("sourceUrl")
+    @SerializedName("sourceUrl")
     val sourceUrl: String,
-        @SerializedName("summary")
+    @SerializedName("summary")
     val summary: String,
-        @SerializedName("sustainable")
+    @SerializedName("sustainable")
     val sustainable: Boolean,
-        @SerializedName("title")
+    @SerializedName("title")
     val title: String,
-        @SerializedName("unusedIngredients")
+    @SerializedName("unusedIngredients")
     val unusedIngredients: List<Any>,
-        @SerializedName("usedIngredientCount")
+    @SerializedName("usedIngredientCount")
     val usedIngredientCount: Int,
-        @SerializedName("usedIngredients")
+    @SerializedName("usedIngredients")
     val usedIngredients: List<Any>,
-        @SerializedName("vegan")
+    @SerializedName("vegan")
     val vegan: Boolean,
-        @SerializedName("vegetarian")
+    @SerializedName("vegetarian")
     val vegetarian: Boolean,
-        @SerializedName("veryHealthy")
+    @SerializedName("veryHealthy")
     val veryHealthy: Boolean,
-        @SerializedName("veryPopular")
+    @SerializedName("veryPopular")
     val veryPopular: Boolean,
-        @SerializedName("weightWatcherSmartPoints")
+    @SerializedName("weightWatcherSmartPoints")
     val weightWatcherSmartPoints: Int
 )
