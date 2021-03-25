@@ -1,4 +1,4 @@
-package com.andriawan.foodie.data.database
+package com.andriawan.foodie.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

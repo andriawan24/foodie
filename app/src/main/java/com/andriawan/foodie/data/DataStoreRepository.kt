@@ -1,6 +1,7 @@
 package com.andriawan.foodie.data
 
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.datastore.DataStore
 import androidx.datastore.preferences.*
 import com.andriawan.foodie.util.Constants.Companion.DEFAULT_DIET_TYPE
