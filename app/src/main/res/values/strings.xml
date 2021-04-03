@@ -35,4 +35,7 @@
     <string name="healthy">Healthy</string>
     <string name="dairy_free">Dairy Free</string>
     <string name="save_to_favorite">Save to favorite</string>
+    <string name="no_favorites_recipe">No Favorites Recipe</string>
+    <string name="delete_favorites_menu">Delete Favorites Menu</string>
+    <string name="delete_all">Delete All</string>
 </resources>
