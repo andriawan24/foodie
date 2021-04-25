@@ -1,6 +1,7 @@
 package com.andriawan.foodie.data
 
 import com.andriawan.foodie.data.network.FoodRecipesApi
+import com.andriawan.foodie.models.FoodJoke
 import com.andriawan.foodie.models.FoodRecipe
 import retrofit2.Response
 import javax.inject.Inject
@@ -15,5 +16,9 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun searchRecipes(searchQueries: Map<String, String>): Response<FoodRecipe> {
         return foodRecipesApi.searchRecipes(searchQueries)
+    }
+
+    suspend fun getFoodJoke(apiKey: String): Response<FoodJoke> {
+        return foodRecipesApi.getFoodJoke(apiKey)
     }
 }

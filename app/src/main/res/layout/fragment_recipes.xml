@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightGray"
+        android:background="@color/backgroundColor"
         tools:context=".ui.fragment.recipe.RecipesFragment">
 
         <com.todkars.shimmer.ShimmerRecyclerView
@@ -49,8 +49,8 @@
             android:layout_marginTop="8dp"
             android:textStyle="bold"
             android:textSize="18sp"
-            readApiResponse2="@{mainViewModel.recipesResponse}"
-            readDatabase2="@{mainViewModel.readRecipes}"
+            readApiResponse="@{mainViewModel.recipesResponse}"
+            readDatabase="@{mainViewModel.readRecipes}"
             android:text="@string/no_internet"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/imgError"

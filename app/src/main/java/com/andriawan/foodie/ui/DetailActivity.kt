@@ -12,16 +12,15 @@ import androidx.navigation.navArgs
 import com.andriawan.foodie.R
 import com.andriawan.foodie.adapters.PagerAdapter
 import com.andriawan.foodie.data.database.entities.FavoriteEntity
+import com.andriawan.foodie.databinding.ActivityDetailBinding
 import com.andriawan.foodie.ui.fragment.ingredient.IngredientFragment
 import com.andriawan.foodie.ui.fragment.instruction.InstructionFragment
 import com.andriawan.foodie.ui.fragment.overview.OverviewFragment
-import com.andriawan.foodie.util.Constants
 import com.andriawan.foodie.util.Constants.Companion.RECIPE_RESULT_KEY
 import com.andriawan.foodie.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import kotlinx.android.synthetic.main.activity_detail.*
 import java.lang.Exception
 
 @AndroidEntryPoint
@@ -30,15 +29,19 @@ class DetailActivity : AppCompatActivity() {
     private val args by navArgs<DetailActivityArgs>()
     private val mainViewModel: MainViewModel by viewModels()
 
+    private var _binding: ActivityDetailBinding? = null
+    private val binding get() = _binding!!
+
     private var savedRecipe = false
     private var savedRecipeId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        _binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolbar)
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val fragments = ArrayList<Fragment>()
@@ -54,15 +57,19 @@ class DetailActivity : AppCompatActivity() {
         val resultBundle = Bundle()
         resultBundle.putParcelable(RECIPE_RESULT_KEY, args.result)
 
-        val adapter = PagerAdapter(
+        val pagerAdapter = PagerAdapter(
             resultBundle,
             fragments,
-            titles,
-            supportFragmentManager
+            this
         )
 
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        binding.viewPager2.apply {
+            adapter = pagerAdapter
+        }
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+            tab.text = titles[position]
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -128,7 +135,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showSnackBar(message: String) {
         Snackbar.make(
-            detailsLayout,
+            binding.detailsLayout,
             message,
             Snackbar.LENGTH_SHORT
         ).setAction("Okay") {}

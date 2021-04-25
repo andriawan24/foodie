@@ -13,7 +13,6 @@ import com.andriawan.foodie.ui.fragment.favorites.FavoriteRecipesFragmentDirecti
 import com.andriawan.foodie.util.RecipesDiffUtil
 import com.andriawan.foodie.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.favorites_recipe_row_layout.view.*
 
 class FavoriteRecipeAdapter(
     private val requireActivity: FragmentActivity,
@@ -29,7 +28,7 @@ class FavoriteRecipeAdapter(
     private val myViewHolder = arrayListOf<ViewHolder>()
     private var favoriteEntity = emptyList<FavoriteEntity>()
 
-    class ViewHolder(private val binding: FavoritesRecipeRowLayoutBinding) :
+    class ViewHolder(val binding: FavoritesRecipeRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favoriteEntity: FavoriteEntity) {
@@ -60,7 +59,9 @@ class FavoriteRecipeAdapter(
         val currentRecipes = favoriteEntity[position]
         holder.bind(currentRecipes)
 
-        holder.itemView.favoriteRecipesRowLayout.setOnClickListener {
+        saveItemOnScroll(currentRecipes, holder)
+
+        holder.binding.favoriteRecipesRowLayout.setOnClickListener {
             if (multiSelection) {
                 applySelection(holder, currentRecipes)
             } else {
@@ -76,16 +77,24 @@ class FavoriteRecipeAdapter(
         /**
          * Long click listener
          */
-        holder.itemView.favoriteRecipesRowLayout.setOnLongClickListener {
+        holder.binding.favoriteRecipesRowLayout.setOnLongClickListener {
             if (!multiSelection) {
                 multiSelection = true
                 requireActivity.startActionMode(this)
                 applySelection(holder, currentRecipes)
                 true
             } else {
-                multiSelection = false
-                false
+                applySelection(holder, currentRecipes)
+                true
             }
+        }
+    }
+
+    private fun saveItemOnScroll(currentRecipe: FavoriteEntity, holder: ViewHolder) {
+        if (selectedRecipes.contains(currentRecipe)) {
+            changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+        } else {
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
         }
     }
 
@@ -152,11 +161,11 @@ class FavoriteRecipeAdapter(
     }
 
     private fun changeRecipeStyle(holder: ViewHolder, backgroundColor: Int, strokeColor: Int) {
-        holder.itemView.favoriteRecipesRowLayout.setBackgroundColor(
+        holder.binding.favoriteRecipesRowLayout.setBackgroundColor(
             ContextCompat.getColor(requireActivity, backgroundColor)
         )
 
-        holder.itemView.favorite_row_cardView.strokeColor =
+        holder.binding.favoriteRowCardView.strokeColor =
             ContextCompat.getColor(requireActivity, strokeColor)
     }
 
@@ -164,6 +173,7 @@ class FavoriteRecipeAdapter(
         when (selectedRecipes.size) {
             0 -> {
                 mActionMode.finish()
+                multiSelection = false
             }
             1 -> {
                 mActionMode.title = "${selectedRecipes.size} item selected"

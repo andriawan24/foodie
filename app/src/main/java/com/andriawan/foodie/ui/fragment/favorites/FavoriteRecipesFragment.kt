@@ -1,7 +1,6 @@
 package com.andriawan.foodie.ui.fragment.favorites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +12,6 @@ import com.andriawan.foodie.databinding.FragmentFavoriteRecipesBinding
 import com.andriawan.foodie.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_favorite_recipes.view.*
 
 @AndroidEntryPoint
 class FavoriteRecipesFragment : Fragment() {
@@ -22,6 +20,7 @@ class FavoriteRecipesFragment : Fragment() {
     private val mAdapter: FavoriteRecipeAdapter by lazy { FavoriteRecipeAdapter(requireActivity(), mainViewModel) }
 
     private var _binding: FragmentFavoriteRecipesBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -66,8 +65,8 @@ class FavoriteRecipesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         mAdapter.clearContextualActionMode()
     }

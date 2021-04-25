@@ -1,30 +1,29 @@
 package com.andriawan.foodie.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.andriawan.foodie.R
+import com.andriawan.foodie.databinding.IngredientRowLayoutBinding
 import com.andriawan.foodie.models.ExtendedIngredient
 import com.andriawan.foodie.util.Constants.Companion.BASE_IMAGE_URL
 import com.andriawan.foodie.util.RecipesDiffUtil
-import kotlinx.android.synthetic.main.ingredient_row_layout.view.*
 import java.util.*
 
 class IngredientsAdapter: RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     private var ingredientList = emptyList<ExtendedIngredient>()
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(val binding: IngredientRowLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(
-            R.layout.ingredient_row_layout,
+        return ViewHolder(IngredientRowLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
-            false
-        ))
+            false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -32,15 +31,15 @@ class IngredientsAdapter: RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.ingredient_imageView.load(BASE_IMAGE_URL + ingredientList[position].image) {
+        holder.binding.ingredientImageView.load(BASE_IMAGE_URL + ingredientList[position].image) {
             crossfade(600)
             error(R.drawable.error_image_placeholder)
         }
-        holder.itemView.ingredient_name.text = ingredientList[position].name.capitalize(Locale.ROOT)
-        holder.itemView.ingredient_amount.text = ingredientList[position].amount.toString()
-        holder.itemView.ingredient_unit.text = ingredientList[position].unit
-        holder.itemView.ingredient_consistency.text = ingredientList[position].consistency
-        holder.itemView.ingredient_original.text = ingredientList[position].original
+        holder.binding.ingredientName.text = ingredientList[position].name.capitalize(Locale.ROOT)
+        holder.binding.ingredientAmount.text = ingredientList[position].amount.toString()
+        holder.binding.ingredientUnit.text = ingredientList[position].unit
+        holder.binding.ingredientConsistency.text = ingredientList[position].consistency
+        holder.binding.ingredientOriginal.text = ingredientList[position].original
     }
 
     fun setData(newIngredientList: List<ExtendedIngredient>) {

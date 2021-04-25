@@ -3,6 +3,7 @@ package com.andriawan.foodie.bindingadapters
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.andriawan.foodie.data.database.entities.RecipesEntity
 import com.andriawan.foodie.models.FoodRecipe
@@ -12,36 +13,22 @@ class RecipesBinding {
 
     companion object {
 
-        @BindingAdapter("readApiResponse", "readDatabase", requireAll = true)
+        @BindingAdapter("readApiResponse", "readDatabase", requireAll = false)
         @JvmStatic
-        fun errorImageViewVisibility(
-            imageView: ImageView,
+        fun handleReadDataErrors(
+            view: View,
             apiResponse: NetworkResult<FoodRecipe>?,
             database: List<RecipesEntity>?
         ) {
+            when (view) {
+                is ImageView -> {
+                    view.isVisible = apiResponse is NetworkResult.Error && database.isNullOrEmpty()
+                }
 
-            if (apiResponse is NetworkResult.Error && database.isNullOrEmpty()) {
-                imageView.visibility = View.VISIBLE
-            } else if (apiResponse is NetworkResult.Loading) {
-                imageView.visibility = View.INVISIBLE
-            } else {
-                imageView.visibility = View.GONE
-            }
-        }
-
-        @BindingAdapter("readApiResponse2", "readDatabase2", requireAll = true)
-        @JvmStatic
-        fun errorTextViewVisibility(
-            textView: TextView,
-            apiResponse: NetworkResult<FoodRecipe>?,
-            database: List<RecipesEntity>?
-        ) {
-            if (apiResponse is NetworkResult.Error && database.isNullOrEmpty()) {
-                textView.visibility = View.VISIBLE
-            } else if (apiResponse is NetworkResult.Loading) {
-                textView.visibility = View.INVISIBLE
-            } else {
-                textView.visibility = View.GONE
+                is TextView -> {
+                    view.isVisible = apiResponse is NetworkResult.Error && database.isNullOrEmpty()
+                    view.text = apiResponse?.message.toString()
+                }
             }
         }
     }
